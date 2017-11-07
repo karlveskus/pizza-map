@@ -1,19 +1,33 @@
 "use strict";
 let map;
-let activeWindow;
 
-const Restaurant = function(data) {
+const Restaurant = function(venue) {
     const self = this;
-    this.name = data.name;
-    this.location = data.location;
     this.visible = ko.observable(true);
+    this.name = venue.name;
+    this.location = venue.location
 
-    this.infoWindow = new google.maps.InfoWindow({content: this.name});    
+    // Build a nice content to show in InfoWindow
+    let infoWindowContent = '<div><b>' + this.name + '</b></div><hr>';
+    if (venue.hasOwnProperty('rating')) {
+        infoWindowContent += '<div><b>Rating:</b> ' + venue.rating + '/10</div>';
+    }
+    if (venue.hasOwnProperty('url')) {
+        infoWindowContent += '<div><b>Link:</b> <a target="_blank" href="' + venue.url + '">' + venue.url + '</a></div>';
+    }
+    if (venue.hasOwnProperty('contact') && venue.contact.hasOwnProperty('formattedPhone')) {
+        infoWindowContent += '<div><b>Phone:</b> ' + venue.contact.formattedPhone + '</div>';
+    }
+    if (venue.hasOwnProperty('popular') && venue.popular.hasOwnProperty('status')) {
+        infoWindowContent += '<div><b>Status:</b> ' + venue.popular.status + '</div>';
+    }
+    
+    this.infoWindow = new google.maps.InfoWindow({content: infoWindowContent});
     
     this.marker = new google.maps.Marker({
         position: new google.maps.LatLng(this.location.lat, this.location.lng),
         map: map,
-        title: data.name
+        title: this.name
     });
 
     // Hide and show markers on the map
@@ -27,7 +41,6 @@ const Restaurant = function(data) {
 
     // Click event listeners for markers
     this.marker.addListener('click', function() {
-        self.infoWindow.setContent(self.name);
         self.infoWindow.open(map, this);
         
 		self.marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -46,14 +59,30 @@ const ViewModel = function() {
     this.restaurantList = ko.observableArray([]);
     this.filter = ko.observable("");
 
+    // Generate a map
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 58.3776, lng: 26.7290},
         zoom: 14,
         mapTypeControl: false
     });
+    
+    // Make Restaurants from Foursquare VENUE_IDs
+    foursquareVenueIds.forEach(function(foursquareVenueId) {
+        let foursquareUrl = 'https://api.foursquare.com/v2/venues/' + foursquareVenueId;
+        let params = '?v=20170801&client_id=KQV0J2PIMHI43KIV3D1SR1JHRYV5Q20FBNKAENKYDFU0NYEA&client_secret=JVMTXF0EFNJX0G5TGM3TDAGVXPZQKQ0XKDWID2ECH4G4APE2';
 
-    restaurants.forEach(function(restaurantItem) {
-        self.restaurantList.push( new Restaurant(restaurantItem) );
+        $.ajax({
+            url: foursquareUrl + params,
+            data: {format: 'json'},
+            dataType: 'json'
+        }).done(function(data){
+            let venue = data.response.venue;
+
+            self.restaurantList.push( new Restaurant(venue) )
+
+        }).fail(function(){
+            console.log( 'Foursquare API request failed!');
+        });
     });
 
     // Filter restaurants by filter given by user
@@ -86,6 +115,13 @@ const ViewModel = function() {
     }
 }
 
+// Initialize Google Maps
 function initMap() {
 	ko.applyBindings(new ViewModel());
+}
+
+// Google Maps error handler
+function mapsErrorHandler() {
+    console.log('Google maps API not loaded')
+    document.getElementById('map').innerHTML = ('<span>Sorry, error with Google Maps API occurred.</span>');    
 }

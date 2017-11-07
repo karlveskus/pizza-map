@@ -1,42 +1,13 @@
-var restaurants = [
-    {
-        'name': 'Taverna',
-        'location': {lat: 58.380693, lng: 26.724596}
-    },
-    {
-        'name': 'Vapiano',
-        'location': {lat: 58.376915, lng: 26.728028}
-    },
-    {
-        'name': 'Pizzeria La Dolce Vita',
-        'location': {lat: 58.381973, lng: 26.722757}
-    },
-    {
-        'name': 'Ruunipizza ja Pannkoogikohvik',
-        'location': {lat: 58.380530, lng: 26.722059}
-    },
-    {
-        'name': 'Pappa Pizza',
-        'location': {lat: 58.375007, lng: 26.724068}
-    },
-    {
-        'name': 'Opera Pizza',
-        'location': {lat: 58.375334, lng: 26.720571}
-    },
-    {
-        'name': 'Pizzapoisid Tartu',
-        'location': {lat: 58.383436, lng: 26.737161}
-    },
-    {
-        'name': 'Tartu Ujula Pizzakiosk',
-        'location': {lat: 58.386277, lng: 26.723929}
-    },
-    {
-        'name': 'Kebab Pizza OÜ',
-        'location': {lat: 58.388125, lng: 26.727662}
-    },
-    {
-        'name': 'Pizzapood',
-        'location': {lat: 58.368136, lng: 26.721058}
-    }
+var foursquareVenueIds = [
+    '4bcefc57cc8cd13ade1ec5cf',
+    '573d977b498e8009a63ee054',
+    '4b6bf230f964a520191d2ce3',
+    '4ad70825f964a5207e0821e3',
+    '55e55a55498ef9459aa7b089',
+    '4b80298cf964a520195830e3',
+    '4c23759cfbe5c9b6c3719b21',
+    '572234f4498e78e3bfeba270',
+    '55547c85498e3041cae62d19'
 ]
+
+
