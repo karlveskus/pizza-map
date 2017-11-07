@@ -82,6 +82,7 @@ const ViewModel = function() {
 
         }).fail(function(){
             console.log( 'Foursquare API request failed!');
+            document.getElementsByTagName('body')[0].innerHTML = ('<span>Sorry, error with Foursquare API occurred.</span>');    
         });
     });
 
@@ -123,5 +124,5 @@ function initMap() {
 // Google Maps error handler
 function mapsErrorHandler() {
     console.log('Google maps API not loaded')
-    document.getElementById('map').innerHTML = ('<span>Sorry, error with Google Maps API occurred.</span>');    
+    document.getElementsByTagName('body')[0].innerHTML = ('<span>Sorry, error with Google Maps API occurred.</span>');    
 }
