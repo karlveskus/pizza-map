@@ -68,7 +68,7 @@ const ViewModel = function() {
     // Make Restaurants from Foursquare VENUE_IDs
     foursquareVenueIds.forEach(function(foursquareVenueId) {
         let foursquareUrl = 'https://api.foursquare.com/v2/venues/' + foursquareVenueId;
-        let params = '?v=20170801&client_id=KQV0J2PIMHI43KIV3D1SR1JHRYV5Q20FBNKAENKYDFU0NYEA&client_secret=JVMTXF0EFNJX0G5TGM3TDAGVXPZQKQ0XKDWID2ECH4G4APE2';
+        let params = '?v=20170801&client_id=VVPTZCN2VTMV5S2GLEGPTJYRH43EMEVO2SV25KP1BQTWKAHF&client_secret=MMIXKDWED1QXUPQAVLNH523ADQBZT5Z2IZEJIZV5M0P2PD1O';
 
         $.ajax({
             url: foursquareUrl + params,
