@@ -1,0 +1,55 @@
+/* Main */
+body {
+    font-family: "Lato", sans-serif;
+}
+
+/* Sidebar */
+#sidebar {
+    background-color: #111;
+    height: 100%;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 60px;
+    position: fixed;
+    top: 0;
+    transition: 0.5s;
+    width: 0;
+    z-index: 1;
+}
+
+#sidebar ul {
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar li {
+    color: #818181;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 8px 8px 8px 40px;
+    transition: 0.3s;
+}
+
+#sidebar li:hover {
+    color: #f1f1f1;
+}
+
+#sidebar #closeSidebar {
+    color: #818181;
+    cursor: pointer;
+    font-size: 36px;
+    margin-left: 50px;
+    padding: 10px 25px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#sidebar #closeSidebar:hover {
+    color: #f1f1f1;
+}
+
+#openSidebar {
+    font-size: 30px;
+    cursor: pointer;
+}
