@@ -6,7 +6,7 @@
     <body>
         <div id="sidebar">
             <a id="closeSidebar" data-bind="click: closeSidebar">&times;</a>
-            <input data-bind="textInput: filter, valueUpdate: 'afterkeydown'"/>
+            <input data-bind="textInput: filter, valueUpdate: 'afterkeydown'" placeholder="Restaurant name here.."/>
             <ul data-bind="foreach: filteredRestaurantList">
                 <li data-bind="text: name"></li>
             </ul>
@@ -20,7 +20,6 @@
         <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyAh7GUINUHrpZ_vcsi2jODB8yAFgyiM41c&v=3&callback=initMap"></script>        
         <script src=restaurants.js></script> 
         <script src=js/main.js></script>
-        
     </body>
 </html>
     
