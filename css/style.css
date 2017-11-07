@@ -1,5 +1,6 @@
 /* Main */
 html, body {
+    box-sizing: border-box;
     font-family: "Lato", sans-serif;
     height: 100%;
     margin: 0;
@@ -60,6 +61,17 @@ html, body {
     z-index: 1;
 }
 
+input {
+    border: 0;
+    box-sizing: border-box;
+    border-radius: 2px;
+    margin: 10px 20px;
+    outline: none;
+    padding: 7px 15px;
+    width: calc(100% - 40px);
+}
+
+/* Map */
 #map {
     height: 100%;
 }
