@@ -1,11 +1,10 @@
-"use strict";
 let map;
 
 const Restaurant = function(venue) {
     const self = this;
     this.visible = ko.observable(true);
     this.name = venue.name;
-    this.location = venue.location
+    this.location = venue.location;
 
     // Build a nice content to show in InfoWindow
     let infoWindowContent = '<div><b>' + this.name + '</b></div><hr>';
@@ -32,7 +31,7 @@ const Restaurant = function(venue) {
 
     // Hide and show markers on the map
     this.showRestaurantMarker = ko.computed(function() {
-        if (this.visible() == true) {
+        if (this.visible() === true) {
             this.marker.setMap(map);
         } else {
             this.marker.setMap(null);
@@ -52,7 +51,7 @@ const Restaurant = function(venue) {
     this.bounce = function(place) {
 		google.maps.event.trigger(self.marker, 'click');
     };
-}
+};
 
 const ViewModel = function() {
     const self = this;
@@ -78,7 +77,7 @@ const ViewModel = function() {
         }).done(function(data){
             let venue = data.response.venue;
 
-            self.restaurantList.push( new Restaurant(venue) )
+            self.restaurantList.push( new Restaurant(venue) );
 
         }).fail(function(){
             console.log( 'Foursquare API request failed!');
@@ -108,13 +107,13 @@ const ViewModel = function() {
     // Open sidebar
     self.openSidebar = function() {
         document.getElementById("sidebar").style.width = "250px";
-    }
+    };
 
     // Close sidebar
     self.closeSidebar = function() {
         document.getElementById("sidebar").style.width = "0";
-    }
-}
+    };
+};
 
 // Initialize Google Maps
 function initMap() {
@@ -123,6 +122,6 @@ function initMap() {
 
 // Google Maps error handler
 function mapsErrorHandler() {
-    console.log('Google maps API not loaded')
+    console.log('Google maps API not loaded');
     document.getElementsByTagName('body')[0].innerHTML = ('<span>Sorry, error with Google Maps API occurred.</span>');    
 }
