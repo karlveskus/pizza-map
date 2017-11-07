@@ -1,7 +1,8 @@
 # Pizza map
 
 ## Description
-Map that shows all the pizza restaurants with detailed information in Tartu.
+Map that shows all the pizza restaurants with detailed information in Tartu.<br>
+LIVE DEMO: https://karlveskus.github.io/pizza-map/
 
 ## How to use
 1. Clone repository
