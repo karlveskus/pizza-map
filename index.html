@@ -6,9 +6,9 @@
     <body>
         <div id="sidebar">
             <a id="closeSidebar" data-bind="click: closeSidebar">&times;</a>
-            <input/>
-            <ul data-bind="foreach: restaurantList">
-                <li data-bind="text: name">asd</li>
+            <input data-bind="textInput: filter, valueUpdate: 'afterkeydown'"/>
+            <ul data-bind="foreach: filteredRestaurantList">
+                <li data-bind="text: name"></li>
             </ul>
         </div>
 
