@@ -1,7 +1,6 @@
 "use strict";
-
 let map;
-const tartu = {lat: 58.3776, lng: 26.7290};
+let activeWindow;
 
 const Restaurant = function(data) {
     const self = this;
@@ -10,7 +9,7 @@ const Restaurant = function(data) {
     this.visible = ko.observable(true);
 
     this.infoWindow = new google.maps.InfoWindow({content: this.name});    
-
+    
     this.marker = new google.maps.Marker({
         position: new google.maps.LatLng(this.location.lat, this.location.lng),
         map: map,
@@ -35,7 +34,11 @@ const Restaurant = function(data) {
       	setTimeout(function() {
       		self.marker.setAnimation(null);
      	}, 1400);
-	});
+    });
+    
+    this.bounce = function(place) {
+		google.maps.event.trigger(self.marker, 'click');
+    };
 }
 
 const ViewModel = function() {
@@ -44,7 +47,7 @@ const ViewModel = function() {
     this.filter = ko.observable("");
 
     map = new google.maps.Map(document.getElementById('map'), {
-        center: tartu,
+        center: {lat: 58.3776, lng: 26.7290},
         zoom: 14,
         mapTypeControl: false
     });

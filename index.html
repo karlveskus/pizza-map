@@ -9,7 +9,7 @@
             <a id="closeSidebar" data-bind="click: closeSidebar">&times;</a>
             <input data-bind="textInput: filter, valueUpdate: 'afterkeydown'" placeholder="Restaurant name here.."/>
             <ul data-bind="foreach: filteredRestaurantList">
-                <li data-bind="text: name"></li>
+                <li data-bind="text: name, click: bounce"></li>
             </ul>
         </div>
 
