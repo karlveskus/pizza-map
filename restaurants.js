@@ -9,3 +9,5 @@ const foursquareVenueIds = [
   '572234f4498e78e3bfeba270',
   '55547c85498e3041cae62d19',
 ];
+
+export { foursquareVenueIds as default };

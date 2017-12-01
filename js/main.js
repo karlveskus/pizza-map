@@ -1,3 +1,6 @@
+import foursquareVenueIds from '../restaurants';
+import { FOURSQUARE_CLIENT_ID, FOURSQUARE_SECRET } from '../secrets';
+
 let map;
 let infoWindow;
 
@@ -75,10 +78,7 @@ const ViewModel = function ViewModel() {
   // Make Restaurants from Foursquare VENUE_IDs
   foursquareVenueIds.forEach((foursquareVenueId) => {
     const foursquareUrl = `https://api.foursquare.com/v2/venues/${foursquareVenueId}`;
-    const clientId = 'VVPTZCN2VTMV5S2GLEGPTJYRH43EMEVO2SV25KP1BQTWKAHF';
-    const cliendSecret = 'MMIXKDWED1QXUPQAVLNH523ADQBZT5Z2IZEJIZV5M0P2PD1O';
-
-    const params = `?v=20170801&client_id=${clientId}&client_secret=${cliendSecret}`;
+    const params = `?v=20170801&client_id=${FOURSQUARE_CLIENT_ID}&client_secret=${FOURSQUARE_SECRET}`;
 
     $.ajax({
       url: foursquareUrl + params,
@@ -90,7 +90,9 @@ const ViewModel = function ViewModel() {
       restaurantList.push(new Restaurant(venue));
     }).fail(() => {
       document.getElementsByTagName('body')[0].innerHTML = (
-        '<span>Sorry, error with Foursquare API occurred.</span>');
+        `<p>
+          Sorry, error with Foursquare API occurred.
+        </p>`);
     });
   });
 
@@ -129,11 +131,12 @@ const ViewModel = function ViewModel() {
 };
 
 // Initialize Google Maps
-function initMap() {
+window.initMap = () => {
   ko.applyBindings(new ViewModel());
-}
+};
 
 // Google Maps error handler
-function mapsErrorHandler() {
-  document.getElementsByTagName('body')[0].innerHTML = ('<span>Sorry, error with Google Maps API occurred.</span>');
-}
+window.mapsErrorHandler = () => {
+  document.getElementsByTagName('body')[0].innerHTML = (
+    '<span>Sorry, error with Google Maps API occurred.</span>');
+};

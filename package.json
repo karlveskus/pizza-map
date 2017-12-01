@@ -5,6 +5,10 @@
   "main": "index.html",
   "author": "Karl Veskus",
   "license": "ISC",
+  "scripts": {
+    "dev": "webpack -d --watch",
+    "prod": "webpack"
+  },
   "devDependencies": {
     "eslint": "^4.12.1",
     "eslint-config-airbnb-base": "^12.1.0",
