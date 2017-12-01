@@ -1,5 +1,5 @@
 import foursquareVenueIds from '../restaurants';
-import { FOURSQUARE_CLIENT_ID, FOURSQUARE_SECRET } from '../secrets';
+import { FOURSQUARE_CLIENT_ID, FOURSQUARE_SECRET } from '../config';
 
 let map;
 let infoWindow;
