@@ -1,132 +1,139 @@
 let map;
 let infoWindow;
 
-const Restaurant = function(venue) {
-    const self = this;
-    this.visible = ko.observable(true);
-    this.name = venue.name;
-    this.location = venue.location;
-    
-    this.marker = new google.maps.Marker({
-        position: new google.maps.LatLng(this.location.lat, this.location.lng),
-        map: map,
-        title: this.name,
-    });
+const Restaurant = function Restaurant(venue) {
+  this.visible = ko.observable(true);
+  this.name = venue.name;
+  this.location = venue.location;
 
-    // Hide and show markers on the map
-    this.showRestaurantMarker = ko.computed(() => {
-        if (this.visible() === true) {
-            this.marker.setMap(map);
-        } else {
-            this.marker.setMap(null);
-        }
-    });
+  this.marker = new google.maps.Marker({
+    position: new google.maps.LatLng(this.location.lat, this.location.lng),
+    map,
+    title: this.name,
+  });
 
-    // Click event listeners for markers
-    this.marker.addListener('click', function() {
-        if (infoWindow) {
-            infoWindow.close();
-        }
+  // Hide and show markers on the map
+  this.toggleMarker = ko.computed(() => {
+    if (this.visible() === true) {
+      this.marker.setMap(map);
+    } else {
+      this.marker.setMap(null);
+    }
+  });
 
-        // Build a nice content to show in InfoWindow
-        let infoWindowContent = '<div><b>' + self.name + '</b></div><hr>';
-        if (venue.hasOwnProperty('rating')) {
-            infoWindowContent += '<div><b>Rating:</b> ' + venue.rating + '/10</div>';
-        }
-        if (venue.hasOwnProperty('url')) {
-            infoWindowContent += '<div><b>Link:</b> <a target="_blank" href="' + venue.url + '">' + venue.url + '</a></div>';
-        }
-        if (venue.hasOwnProperty('contact') && venue.contact.hasOwnProperty('formattedPhone')) {
-            infoWindowContent += '<div><b>Phone:</b> ' + venue.contact.formattedPhone + '</div>';
-        }
-        if (venue.hasOwnProperty('popular') && venue.popular.hasOwnProperty('status')) {
-            infoWindowContent += '<div><b>Status:</b> ' + venue.popular.status + '</div>';
-        }
+  // Click event listener for markers
+  this.marker.addListener('click', () => {
+    // Close old infoWindow
+    if (infoWindow) {
+      infoWindow.close();
+    }
 
-        infoWindow = new google.maps.InfoWindow({content: infoWindowContent});
+    // Build a nice content to show in InfoWindow
+    let infoWindowContent = `<div><b> ${this.name} </b></div><hr>`;
+    if (Object.prototype.hasOwnProperty.call(venue, 'rating')) {
+      infoWindowContent += `<div><b>Rating:</b> ${venue.rating}/10</div>`;
+    }
+    if (Object.prototype.hasOwnProperty.call(venue, 'url')) {
+      infoWindowContent +=
+        `<div><b>Link:</b> <a target="_blank" href="${venue.url}">${venue.url}</a></div>`;
+    }
+    if (Object.prototype.hasOwnProperty.call(venue, 'contact')
+    && Object.prototype.hasOwnProperty.call(venue.contact, 'formattedPhone')) {
+      infoWindowContent += `<div><b>Phone:</b> ${venue.contact.formattedPhone}</div>`;
+    }
+    if (Object.prototype.hasOwnProperty.call(venue, 'popular')
+    && Object.prototype.hasOwnProperty.call(venue.popular, 'status')) {
+      infoWindowContent += `<div><b>Status:</b> ${venue.popular.status} </div>`;
+    }
 
-        infoWindow.open(map, this);
-        
-        self.marker.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function() {
-            self.marker.setAnimation(null);
-        }, 1400);
-    });
-    
-    this.bounce = function(place) {
-        google.maps.event.trigger(self.marker, 'click');
-    };
+    infoWindow = new google.maps.InfoWindow({ content: infoWindowContent });
+
+    infoWindow.open(map, this.marker);
+
+    this.marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(() => {
+      this.marker.setAnimation(null);
+    }, 1400);
+  });
+
+  this.bounce = () => {
+    google.maps.event.trigger(this.marker, 'click');
+  };
 };
 
-const ViewModel = function() {
-    const self = this;
-    this.restaurantList = ko.observableArray([]);
-    this.filter = ko.observable('');
+const ViewModel = function ViewModel() {
+  const restaurantList = ko.observableArray([]);
+  this.filter = ko.observable('');
 
-    // Generate a map
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 58.3776, lng: 26.7290},
-        zoom: 14,
-        mapTypeControl: false,
+  // Generate a map
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 58.3776, lng: 26.7290 },
+    zoom: 14,
+    mapTypeControl: false,
+  });
+
+  // Make Restaurants from Foursquare VENUE_IDs
+  foursquareVenueIds.forEach((foursquareVenueId) => {
+    const foursquareUrl = `https://api.foursquare.com/v2/venues/${foursquareVenueId}`;
+    const clientId = 'VVPTZCN2VTMV5S2GLEGPTJYRH43EMEVO2SV25KP1BQTWKAHF';
+    const cliendSecret = 'MMIXKDWED1QXUPQAVLNH523ADQBZT5Z2IZEJIZV5M0P2PD1O';
+
+    const params = `?v=20170801&client_id=${clientId}&client_secret=${cliendSecret}`;
+
+    $.ajax({
+      url: foursquareUrl + params,
+      data: { format: 'json' },
+      dataType: 'json',
+    }).done((data) => {
+      const { venue } = data.response;
+
+      restaurantList.push(new Restaurant(venue));
+    }).fail(() => {
+      document.getElementsByTagName('body')[0].innerHTML = (
+        '<span>Sorry, error with Foursquare API occurred.</span>');
     });
-    
-    // Make Restaurants from Foursquare VENUE_IDs
-    foursquareVenueIds.forEach(function(foursquareVenueId) {
-        let foursquareUrl = 'https://api.foursquare.com/v2/venues/' + foursquareVenueId;
-        let params = '?v=20170801&client_id=VVPTZCN2VTMV5S2GLEGPTJYRH43EMEVO2SV25KP1BQTWKAHF&client_secret=MMIXKDWED1QXUPQAVLNH523ADQBZT5Z2IZEJIZV5M0P2PD1O';
+  });
 
-        $.ajax({
-            url: foursquareUrl + params,
-            data: {format: 'json'},
-            dataType: 'json'
-        }).done(function(data){
-            let venue = data.response.venue;
+  // Filter restaurants by user input
+  this.filteredRestaurantList = ko.computed(() => {
+    const filterLower = this.filter().toLowerCase();
+    let restaurants;
 
-            self.restaurantList.push( new Restaurant(venue) );
+    if (filterLower) {
+      restaurants = ko.utils.arrayFilter(restaurantList(), (restaurantItem) => {
+        const nameLower = restaurantItem.name.toLowerCase();
+        const isMatch = (nameLower.search(filterLower) >= 0);
 
-        }).fail(function(){
-            console.log( 'Foursquare API request failed!');
-            document.getElementsByTagName('body')[0].innerHTML = ('<span>Sorry, error with Foursquare API occurred.</span>');    
-        });
-    });
+        restaurantItem.visible(isMatch);
+        return isMatch;
+      });
+    } else {
+      restaurantList().forEach((restaurantItem) => {
+        restaurantItem.visible(true);
+      });
+      restaurants = restaurantList();
+    }
 
-    // Filter restaurants by filter given by user
-    this.filteredRestaurantList = ko.computed(function() {
-		let filterLower = self.filter().toLowerCase();
-		if (filterLower) {
-            return ko.utils.arrayFilter(self.restaurantList(), function(restaurantItem) {
-				var nameLower = restaurantItem.name.toLowerCase();
-                var isMatch = (nameLower.search(filterLower) >= 0);
-                
-				restaurantItem.visible(isMatch);
-				return isMatch;
-			});
-		} else {
-			self.restaurantList().forEach(function(restaurantItem){
-				restaurantItem.visible(true);
-			});
-			return self.restaurantList();
-		}
-	});
+    return restaurants;
+  });
 
-    // Open sidebar
-    self.openSidebar = function() {
-        document.getElementById("sidebar").style.width = "250px";
-    };
+  // Open sidebar
+  this.openSidebar = () => {
+    document.getElementById('sidebar').style.width = '250px';
+  };
 
-    // Close sidebar
-    self.closeSidebar = function() {
-        document.getElementById("sidebar").style.width = "0";
-    };
+  // Close sidebar
+  this.closeSidebar = () => {
+    document.getElementById('sidebar').style.width = '0';
+  };
 };
 
 // Initialize Google Maps
 function initMap() {
-	ko.applyBindings(new ViewModel());
+  ko.applyBindings(new ViewModel());
 }
 
 // Google Maps error handler
 function mapsErrorHandler() {
-    console.log('Google maps API not loaded');
-    document.getElementsByTagName('body')[0].innerHTML = ('<span>Sorry, error with Google Maps API occurred.</span>');    
+  document.getElementsByTagName('body')[0].innerHTML = ('<span>Sorry, error with Google Maps API occurred.</span>');
 }

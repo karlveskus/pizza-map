@@ -1,0 +1,14 @@
+{
+  "name": "pizza-map",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "author": "Karl Veskus",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^4.12.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-plugin-import": "^2.8.0"
+  }
+}
