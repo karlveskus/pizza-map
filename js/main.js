@@ -137,6 +137,7 @@ const ViewModel = function ViewModel() {
   };
 };
 
+
 // Initialize Google Maps
 window.initMap = () => {
   ko.applyBindings(new ViewModel());

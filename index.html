@@ -8,7 +8,7 @@
     <body>
         <aside id="sidebar">
             <a id="closeSidebar" data-bind="click: closeSidebar">&times;</a>
-            <input data-bind="textInput: filter, valueUpdate: 'afterkeydown'" placeholder="Restaurant name here.."/>
+            <input data-bind="textInput: filter, valueUpdate: 'afterkeydown'" placeholder="Search ..."/>
             <ul data-bind="foreach: filteredRestaurantList">
                 <li data-bind="text: name, click: () => { $parent.closeSidebar(); bounce() }"></li>
             </ul>
@@ -16,7 +16,7 @@
 
         <section id="openSidebar" data-bind="click: openSidebar">&#9776;</section>
 
-        <main id="map"></mainv>
+        <main id="map" data-bind="click: closeSidebar"></mainv>
 
         <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
