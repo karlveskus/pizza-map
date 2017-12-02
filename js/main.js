@@ -32,12 +32,11 @@ const Restaurant = function Restaurant(venue) {
     }
 
     // Build a nice content to show in InfoWindow
-    let infoWindowContent = `
-      <div>
-        <h3>${this.name}</h3>
-        <b>Address:</b> ${this.location.address}
-      </div>
-    `;
+    let infoWindowContent = `<div><h3>${this.name}</h3></div>`;
+
+    if (Object.prototype.hasOwnProperty.call(this.location, 'address')) {
+      infoWindowContent += `<div><b>Address:</b> ${this.location.address}</div>`;
+    }
     if (Object.prototype.hasOwnProperty.call(venue, 'rating')) {
       infoWindowContent += `<div><b>Rating:</b> ${venue.rating}/10</div>`;
     }
