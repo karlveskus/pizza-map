@@ -75,8 +75,8 @@ const ViewModel = function ViewModel() {
 
   // Generate a map
   map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: 58.3776, lng: 26.7290 },
-    zoom: 14,
+    center: { lat: 58.381482, lng: 26.724498 },
+    zoom: 15,
     mapTypeControl: false,
   });
 
