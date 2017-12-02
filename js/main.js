@@ -1,4 +1,4 @@
-import foursquareVenueIds from '../restaurants';
+import foursquareVenueIds from '../data/restaurants';
 import { FOURSQUARE_CLIENT_ID, FOURSQUARE_SECRET } from '../config';
 
 // Import styles
