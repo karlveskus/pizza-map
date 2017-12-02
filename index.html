@@ -3,8 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/fonts.css">
+        <script src="dist/main.bundle.js"></script>
     </head>
     <body>
         <aside id="sidebar">
@@ -18,11 +17,10 @@
         <section id="openSidebar" data-bind="click: openSidebar">&#9776;</section>
 
         <main id="map" data-bind="click: mapClickHandler"></mainv>
-
+        
         <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
-        <script src=dist/main.bundle.js></script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyAh7GUINUHrpZ_vcsi2jODB8yAFgyiM41c&v=3&callback=initMap" onerror="mapsErrorHandler()"></script>        
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAh7GUINUHrpZ_vcsi2jODB8yAFgyiM41c&v=3&callback=initMap" onerror="mapsErrorHandler()"></script>        
     </body>
 </html>
     

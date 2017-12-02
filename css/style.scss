@@ -1,0 +1,120 @@
+html, body {
+    box-sizing: border-box;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    height: 100%;
+    margin: 0;
+}
+
+
+#sidebar {
+    background-color: #0d47a1;
+    height: 100%;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 60px;
+    position: fixed;
+    top: 0;
+    transition: 0.5s;
+    width: 0;
+    z-index: 2;
+
+    #closeSidebar {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        color: #f2f2f2;
+        cursor: pointer;
+        font-size: 36px;
+        margin-left: 50px;
+        padding: 10px 25px;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        &:hover {
+            color: #ff1744;
+        }
+    }
+
+    input {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        background: none;
+        border: 0;
+        border-bottom: 1px solid #f2f2f2;
+        border-radius: 0; 
+        box-sizing: border-box;
+        color: #f2f2f2;
+        font-size: 17px;
+        margin: 0px 20px 5px;
+        outline: none;
+        padding: 7px 10px;
+        width: calc(100% - 40px);
+
+        &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+            color: #f2f2f2;
+        }
+        &::-moz-placeholder { /* Firefox 19+ */
+            color: #f2f2f2;
+        }
+        &:-ms-input-placeholder { /* IE 10+ */
+            color: #f2f2f2;
+        }
+        &:-moz-placeholder { /* Firefox 18- */
+            color: #f2f2f2;
+        }
+        
+        &:focus, &:active {
+            border: 0;
+            border-bottom: 1px solid #ff1744;
+            border-radius: 0; 
+        }
+    }
+    
+    ul {
+        margin: 0;
+        padding: 0;
+        width: 250px;
+    }
+
+    li {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        color: #f2f2f2;
+        cursor: pointer;
+        font-size: 17px;
+        padding: 8px 8px 8px 30px;
+        transition: 0.3s;
+
+        &:hover {
+            color: #ff1744;
+        }
+    }
+}
+
+
+#openSidebar {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    color: #0d47a1;
+    cursor: pointer;
+    font-size: 30px;
+    padding: 10px 15px;
+    position: fixed;
+    z-index: 1;
+}
+
+
+#map {
+    height: 100%;
+
+    h3 {
+        margin-bottom: 12px;
+        margin-top: 8px;
+    }
+
+    a {
+        color: inherit;
+    }
+
+    .infoWindowBottom{
+        height: 8px;
+    }
+}

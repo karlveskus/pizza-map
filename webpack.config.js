@@ -1,6 +1,14 @@
+const path = require('path');
+
 module.exports = {
   entry: './js/main.js',
   output: {
-    filename: './dist/main.bundle.js',
+    path: path.join(__dirname, 'dist'),
+    filename: 'main.bundle.js',
+  },
+  module: {
+    rules: [
+      { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+    ],
   },
 };

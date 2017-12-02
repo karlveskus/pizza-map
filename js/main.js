@@ -1,6 +1,10 @@
 import foursquareVenueIds from '../restaurants';
 import { FOURSQUARE_CLIENT_ID, FOURSQUARE_SECRET } from '../config';
 
+// Import styles
+import '../css/style.scss';
+import '../css/fonts.scss';
+
 let map;
 let infoWindow;
 
