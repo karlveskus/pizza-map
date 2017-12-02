@@ -10,7 +10,7 @@
             <a id="closeSidebar" data-bind="click: closeSidebar">&times;</a>
             <input data-bind="textInput: filter, valueUpdate: 'afterkeydown'" placeholder="Search ..."/>
             <ul data-bind="foreach: filteredRestaurantList">
-                <li data-bind="text: name, click: () => { $parent.closeSidebar(); bounce() }"></li>
+                <li data-bind="text: name, click: () => listItemClickHandler($parent)"></li>
             </ul>
         </aside>
 

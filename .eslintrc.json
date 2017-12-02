@@ -3,6 +3,7 @@
     "globals": {
         "document": true,
         "window": true,
+        "navigator": true,
         "$": true,
         "ko": true,
         "google": true,

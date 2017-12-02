@@ -68,7 +68,11 @@ const Restaurant = function Restaurant(venue) {
     }, 1400);
   });
 
-  this.bounce = () => {
+  this.listItemClickHandler = (parent) => {
+    if (window.isMobileDevice()) {
+      parent.closeSidebar();
+    }
+
     google.maps.event.trigger(this.marker, 'click');
   };
 };
@@ -144,8 +148,10 @@ const ViewModel = function ViewModel() {
 
   // Closes sidebar and removes possible focus from input field
   this.mapClickHandler = () => {
-    document.activeElement.blur();
-    this.closeSidebar();
+    if (window.isMobileDevice()) {
+      document.activeElement.blur();
+      this.closeSidebar();
+    }
   };
 };
 
