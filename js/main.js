@@ -73,10 +73,14 @@ const ViewModel = function ViewModel() {
   const restaurantList = ko.observableArray([]);
   this.filter = ko.observable('');
 
+  // Different zoom for mobile and desktop
+  const zoom = window.isMobileDevice() ? 14 : 15;
+
   // Generate a map
   map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 58.381482, lng: 26.724498 },
-    zoom: 15,
+    zoom,
+    streetViewControl: false,
     mapTypeControl: false,
   });
 
@@ -151,4 +155,9 @@ window.initMap = () => {
 window.mapsErrorHandler = () => {
   document.getElementsByTagName('body')[0].innerHTML = (
     '<span>Sorry, error with Google Maps API occurred.</span>');
+};
+
+window.isMobileDevice = () => {
+  const isMobileDevice = (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1);
+  return isMobileDevice;
 };
