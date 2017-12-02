@@ -76,3 +76,16 @@ input {
 #map {
     height: 100%;
 }
+
+#map h3 {
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+
+#map a {
+    color: inherit;
+}
+
+#map .infoWindowBottom{
+    height: 8px;
+}

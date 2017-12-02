@@ -32,13 +32,14 @@ const Restaurant = function Restaurant(venue) {
     }
 
     // Build a nice content to show in InfoWindow
-    let infoWindowContent = `<div><b> ${this.name} </b></div><hr>`;
+    let infoWindowContent = `
+      <div>
+        <h3>${this.name}</h3>
+        <b>Address:</b> ${this.location.address}
+      </div>
+    `;
     if (Object.prototype.hasOwnProperty.call(venue, 'rating')) {
       infoWindowContent += `<div><b>Rating:</b> ${venue.rating}/10</div>`;
-    }
-    if (Object.prototype.hasOwnProperty.call(venue, 'url')) {
-      infoWindowContent +=
-        `<div><b>Link:</b> <a target="_blank" href="${venue.url}">${venue.url}</a></div>`;
     }
     if (Object.prototype.hasOwnProperty.call(venue, 'contact')
     && Object.prototype.hasOwnProperty.call(venue.contact, 'formattedPhone')) {
@@ -48,6 +49,11 @@ const Restaurant = function Restaurant(venue) {
     && Object.prototype.hasOwnProperty.call(venue.popular, 'status')) {
       infoWindowContent += `<div><b>Status:</b> ${venue.popular.status} </div>`;
     }
+    if (Object.prototype.hasOwnProperty.call(venue, 'url')) {
+      infoWindowContent +=
+        `<div><b>Link:</b> <a target="_blank" href="${venue.url}">${venue.url}</a></div>`;
+    }
+    infoWindowContent += '<div class="infoWindowBottom"></div>';
 
     infoWindow = new google.maps.InfoWindow({ content: infoWindowContent });
 
@@ -60,6 +66,7 @@ const Restaurant = function Restaurant(venue) {
   });
 
   this.bounce = () => {
+    console.log(venue);
     google.maps.event.trigger(this.marker, 'click');
   };
 };
