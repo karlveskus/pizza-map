@@ -67,6 +67,7 @@ html, body {
 }
 
 input {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     background: none;
     border: 0;
     border-bottom: 1px solid #f2f2f2;

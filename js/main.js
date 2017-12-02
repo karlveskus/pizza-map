@@ -66,7 +66,6 @@ const Restaurant = function Restaurant(venue) {
   });
 
   this.bounce = () => {
-    console.log(venue);
     google.maps.event.trigger(this.marker, 'click');
   };
 };
@@ -134,6 +133,12 @@ const ViewModel = function ViewModel() {
   // Close sidebar
   this.closeSidebar = () => {
     document.getElementById('sidebar').style.width = '0';
+  };
+
+  // Closes sidebar and removes possible focus from input field
+  this.mapClickHandler = () => {
+    document.activeElement.blur();
+    this.closeSidebar();
   };
 };
 
